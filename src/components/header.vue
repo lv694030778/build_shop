@@ -1,0 +1,246 @@
+<template>
+  <div data-v-2ec03684="" class="header">
+    <div data-v-2ec03684="" class="collapse-btn"><i data-v-2ec03684="" class="el-icon-s-fold"></i></div>
+    <div data-v-2ec03684="" class="logo">管理后台</div>
+    <div data-v-2ec03684="" class="manage">
+      <span v-for="(item,index) in manage" @click="changeClass(index)" :class="nowIndex==index?indexClass:''" :key="index" >{{item.name}}</span>
+    </div>
+    <div data-v-2ec03684="" class="header-right">
+      <div data-v-2ec03684="" class="header-user-con">
+        <div data-v-2ec03684="" class="user-avator">
+          <img data-v-2ec03684="" src="../assets/img.146655c9.jpg">
+        </div>
+        <div data-v-2ec03684="" class="user-name el-dropdown">
+          <span data-v-2ec03684="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-9442" role="button" tabindex="0">
+            admin<i data-v-2ec03684="" class="el-icon-caret-bottom"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>/* eslint semi: ["error", "never"] */
+/* eslint-disable */
+export default {
+  name: 'header',
+  data () {
+    return {
+      nowIndex: '0',
+      indexClass: "on",
+      manage: [{name: '楼盘管理', other: ''},
+        {name: '置业顾问管理', other: ''},
+        {name: '运营管理', other: ''},
+        {name: '配置管理', other: ''}]
+    }
+  },
+  methods: {
+    changeClass: function (index) {
+      this.nowIndex=index;
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+  .header[data-v-2ec03684] {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 70px;
+    font-size: 22px;
+    color: #000;
+    background-color: rgb(10,167,219);
+  }
+
+  .collapse-btn[data-v-2ec03684] {
+    float: left;
+    padding: 0 21px;
+    cursor: pointer;
+    line-height: 70px
+  }
+
+  .header .logo[data-v-2ec03684] {
+    float: left;
+    width: 250px;
+    line-height: 70px
+  }
+  .header .manage[data-v-2ec03684] {
+    float: left;
+    line-height: 70px;
+    font-size: 16px;
+  }
+  .header .manage[data-v-2ec03684] span {
+    padding: 10px 5px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  .header .manage[data-v-2ec03684] .on{
+    border-bottom: 6px solid #fff;
+    color: #fff;
+  }
+  .header-right[data-v-2ec03684] {
+    float: right;
+    padding-right: 50px
+  }
+
+  .header-user-con[data-v-2ec03684] {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 70px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+  }
+
+  .btn-fullscreen[data-v-2ec03684] {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    margin-right: 5px;
+    font-size: 24px
+  }
+
+  .btn-bell[data-v-2ec03684], .btn-fullscreen[data-v-2ec03684] {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer
+  }
+
+  .btn-bell-badge[data-v-2ec03684] {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #f56c6c;
+    color: #fff
+  }
+
+  .btn-bell .el-icon-bell[data-v-2ec03684] {
+    color: #fff
+  }
+
+  .user-name[data-v-2ec03684] {
+    margin-left: 10px
+  }
+
+  .user-avator[data-v-2ec03684] {
+    margin-left: 20px
+  }
+
+  .user-avator img[data-v-2ec03684] {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%
+  }
+
+  .el-dropdown-link[data-v-2ec03684] {
+    color: #000;
+    cursor: pointer
+  }
+
+  .el-dropdown-menu__item[data-v-2ec03684] {
+    text-align: center
+  }
+
+  .sidebar[data-v-04f33312] {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 70px;
+    bottom: 0;
+    overflow-y: scroll
+  }
+
+  .sidebar[data-v-04f33312]::-webkit-scrollbar {
+    width: 0
+  }
+
+  .sidebar-el-menu[data-v-04f33312]:not(.el-menu--collapse) {
+    width: 250px
+  }
+
+  .sidebar > ul[data-v-04f33312] {
+    height: 100%
+  }
+
+  .tags {
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+    background: #fff;
+    padding-right: 120px;
+    -webkit-box-shadow: 0 5px 10px #ddd;
+    box-shadow: 0 5px 10px #ddd
+  }
+
+  .tags ul {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%
+  }
+
+  .tags-li {
+    float: left;
+    margin: 3px 5px 2px 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #e9eaec;
+    background: #fff;
+    padding: 0 5px 0 12px;
+    vertical-align: middle;
+    color: #666;
+    -webkit-transition: all .3s ease-in;
+    transition: all .3s ease-in
+  }
+
+  .tags-li:not(.active):hover {
+    background: #f8f8f8
+  }
+
+  .tags-li.active {
+    color: #fff
+  }
+
+  .tags-li-title {
+    float: left;
+    max-width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+    color: #666
+  }
+
+  .tags-li.active .tags-li-title {
+    color: #fff
+  }
+
+  .tags-close-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 1px;
+    text-align: center;
+    width: 110px;
+    height: 30px;
+    background: #fff;
+    -webkit-box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
+    box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
+    z-index: 10
+  }
+
+</style>
