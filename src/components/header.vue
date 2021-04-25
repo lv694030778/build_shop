@@ -1,23 +1,27 @@
+
 <template>
-  <div data-v-2ec03684="" class="header">
-    <div data-v-2ec03684="" class="collapse-btn"><i data-v-2ec03684="" class="el-icon-s-fold"></i></div>
-    <div data-v-2ec03684="" class="logo">管理后台</div>
-    <div data-v-2ec03684="" class="manage">
-      <span v-for="(item,index) in manage" @click="changeClass(index)" :class="nowIndex==index?indexClass:''" :key="index" >{{item.name}}</span>
-    </div>
-    <div data-v-2ec03684="" class="header-right">
-      <div data-v-2ec03684="" class="header-user-con">
-        <div data-v-2ec03684="" class="user-avator">
-          <img data-v-2ec03684="" src="../assets/img.146655c9.jpg">
-        </div>
-        <div data-v-2ec03684="" class="user-name el-dropdown">
-          <span data-v-2ec03684="" class="el-dropdown-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-9442" role="button" tabindex="0">
-            admin<i data-v-2ec03684="" class="el-icon-caret-bottom"></i></span>
+  <div style="height: 100%">
+    <div data-v-2ec03684="" class="header" id="header">
+      <div data-v-2ec03684="" class="logo">管理后台</div>
+      <div data-v-2ec03684="" class="manage">
+        <router-link tag="span" v-for="(item,index) in manage" @click="changeClass(index)" :class="nowIndex==index?indexClass:''" :key="index"  :to="item.router" >{{item.name}}</router-link>
+      </div>
+      <div data-v-2ec03684="" class="header-right">
+        <div data-v-2ec03684="" class="header-user-con">
+          <div data-v-2ec03684="" class="user-avator">
+            <img data-v-2ec03684="" src="../assets/img.146655c9.jpg">
+          </div>
+          <div data-v-2ec03684="" class="user-name el-dropdown">
+          <span data-v-2ec03684="" class="el-dropdo5 wn-link el-dropdown-selfdefine" aria-haspopup="list" aria-controls="dropdown-menu-9442" role="button" tabindex="0">
+            admin</span>
+          </div>
         </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
+
 <script>/* eslint semi: ["error", "never"] */
 /* eslint-disable */
 export default {
@@ -26,10 +30,10 @@ export default {
     return {
       nowIndex: '0',
       indexClass: "on",
-      manage: [{name: '楼盘管理', other: ''},
-        {name: '置业顾问管理', other: ''},
-        {name: '运营管理', other: ''},
-        {name: '配置管理', other: ''}]
+      manage: [{name: '楼盘管理', other: '',router:'/typeList'},
+        {name: '置业顾问管理', other: '',router:'/typeList'},
+        {name: '运营管理', other: '',router:'/typeList'},
+        {name: '配置管理', other: '',router:'/dispose'}]
     }
   },
   methods: {
@@ -53,17 +57,11 @@ export default {
     background-color: rgb(10,167,219);
   }
 
-  .collapse-btn[data-v-2ec03684] {
-    float: left;
-    padding: 0 21px;
-    cursor: pointer;
-    line-height: 70px
-  }
-
   .header .logo[data-v-2ec03684] {
     float: left;
     width: 250px;
-    line-height: 70px
+    line-height: 70px;
+    text-align: center;
   }
   .header .manage[data-v-2ec03684] {
     float: left;
@@ -242,5 +240,7 @@ export default {
     box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
     z-index: 10
   }
-
+  .el-dropdown{
+    color: #000;
+  }
 </style>

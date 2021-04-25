@@ -1,71 +1,79 @@
 <template>
-  <aside id="typeList" class="el-aside main-aside">
-    <div data-v-be8f7ef4="" class="sidebar sidebar-container">
-      <div data-v-be8f7ef4="" class="sidebar-title widgets">
-        <div data-cid="iklf5d5n6wlm83w" data-link_cid="" class="widget rich_text hleft vtop auto"
-             style="width: 81px; height: 30px; left: 13px; top: 130px; z-index: 29; font-size: 14px; text-align: left; font-weight: normal; font-style: normal; opacity: 1;float: left;margin-left: 20px;">
-          <div class="rich-text"><p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text"
-                                                                                    data-boldtype="0"
-                                                                                    style="font-family:SourceHanSansSC; font-weight:400; font-size:18px; color:rgb(255, 255, 255); font-style:normal; letter-spacing:0px; line-height:30px; text-decoration:none;">当前城市</span>
-          </p></div>
-          <div class="region gesture " style="display: none;"></div>
-        </div>
-        <div data-cid="iklf5d5n6uk06xb" data-link_cid="" class="widget mselect"
-             style="width: 94px; height: 28px; left: 100px; top: 133px; z-index: 30; border-color: rgb(187, 187, 187); border-width: 1px; border-style: solid; font-size: 14px; font-weight: normal; font-style: normal; opacity: 1;float:left;">
-          <select>
-            <option value="0" selected="">南京</option>
-            <option value="1">郑州</option>
-            <option value="2">苏州</option>
-          </select>
-          <div class="region gesture " style="display: none;"></div>
-        </div>
-      </div>
-      <ul>
-        <li role="menuitem" aria-haspopup="true" class="el-submenu">
-          <div class="el-submenu__title"
-               style="padding-left: 20px;">
-            <img src="../../images/icon.png" alt="" class="svg-icon">
-            <span data-v-31ea41b3="">楼盘列表</span>
-            <i class="el-submenu__icon-arrow el-icon-arrow-down"></i>
+  <div style="width: 100%;height:calc(100% - 70px) ">
+    <aside id="typeList" class="el-aside main-aside">
+      <div data-v-be8f7ef4="" class="sidebar sidebar-container">
+        <div data-v-be8f7ef4="" class="sidebar-title widgets">
+          <div data-cid="iklf5d5n6wlm83w" data-link_cid="" class="widget rich_text hleft vtop auto"
+               style="width: 81px; height: 30px; left: 13px; top: 130px; z-index: 29; font-size: 14px; text-align: left; font-weight: normal; font-style: normal; opacity: 1;float: left;margin-left: 20px;">
+            <div class="rich-text"><p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text"
+                                                                                      data-boldtype="0"
+                                                                                      style="font-family:SourceHanSansSC; font-weight:400; font-size:18px; color:rgb(255, 255, 255); font-style:normal; letter-spacing:0px; line-height:30px; text-decoration:none;">当前城市</span>
+            </p></div>
+            <div class="region gesture " style="display: none;"></div>
           </div>
-          <ul role="menu" class="el-menu el-menu--inline" style="background-color: rgb(48, 65, 86); display: none;">
-            <div class="nest-menu"><a href="#/permission/page" class="">
-              <li role="menuitem" tabindex="-1" class="el-menu-item"
-                  style="padding-left: 40px; color: rgb(191, 203, 217); background-color: rgb(48, 65, 86);"><span
-                data-v-31ea41b3="">Page Permission</span></li>
-            </a></div>
-            <div class="nest-menu"><a href="#/permission/directive" class="">
-              <li role="menuitem" tabindex="-1" class="el-menu-item"
-                  style="padding-left: 40px; color: rgb(191, 203, 217); background-color: rgb(48, 65, 86);"><span
-                data-v-31ea41b3="">Directive Permission</span></li>
-            </a></div>
-            <div class="nest-menu"><a href="#/permission/role" class="">
-              <li role="menuitem" tabindex="-1" class="el-menu-item"
-                  style="padding-left: 40px; color: rgb(191, 203, 217); background-color: rgb(48, 65, 86);"><span
-                data-v-31ea41b3="">Role Permission</span></li>
-            </a></div>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </aside>
+          <div data-cid="iklf5d5n6uk06xb" data-link_cid="" class="widget mselect" style="float:left;">
+            <select>
+              <option value="0" selected="">南京</option>
+              <option value="1">郑州</option>
+              <option value="2">苏州</option>
+            </select>
+            <div class="region gesture " style="display: none;"></div>
+          </div>
+        </div>
+        <ul>
+          <li role="menuitem" aria-haspopup="true" class="el-submenu" v-for="(item,index) in typeList" :key="index">
+            <div class="el-submenu__title"
+                 style="padding-left: 20px;" @click="typeClick(index)">
+              <img src="../../images/icon.png" alt="" class="svg-icon">
+              <router-link tag="span" :to="item.router" data-v-31ea41b3="">{{item.name}}</router-link>
+              <i v-if="item.child.length>0" :class="['el-submenu__icon-arrow',typeIndex==index?'el-icon-arrow-up':'el-icon-arrow-down']"></i>
+            </div>
+            <ul v-if="item.child.length>0" role="menu" :class="['el-menu','el-menu--inline',typeIndex==index?'active':'']" >
+              <div class="nest-menu" v-for="(child_item,child_index) in item.child" :key="child_index">
+                <a href="#/permission/page" :class="childIndex==child_index?'active':''" @click="clildClick(child_index)">
+                  <li role="menuitem" tabindex="-1" class="el-menu-item" style="">
+                    <router-link tag="span" :to="child_item.router">{{child_item.name}}</router-link>
+                  </li>
+                </a>
+              </div>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <router-view></router-view>
+  </div>
 </template>
+@import
 <script>export default {
   name: 'typeList',
   data () {
-    return {}
+    return {
+      typeIndex: 0,
+      childIndex: 0,
+      typeList: [{name: '楼盘列表', router: '/rightContent/build_manage/non_commercial', child: [{name: '非商业', router: '/rightContent/build_manage/non_commercial'}, {name: '商业', router: ''}]},
+        {name: '取证管理', router: '/', child: []},
+        {name: '内容管理', router: '/', child: []},
+        {name: '图片管理', router: '/', child: []},
+        {name: '周边管理', router: '/', child: []},
+        {name: '地铁管理', router: '/', child: []},
+        {name: '商圈管理', router: '/', child: []},
+        {name: '筛选管理', router: '/', child: []}]
+    }
+  },
+  methods: {
+    typeClick: function (index) {
+      this.typeIndex === index ? this.typeIndex = '-1' : this.typeIndex = index
+      this.childIndex = 0
+    },
+    clildClick: function (index) {
+      this.childIndex = index
+    }
   }
 }
 </script>
 
 <style scoped>
-  #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    width: 100%;
-    height: 100%
-  }
 
   #nprogress .bar {
     background: #f811b2 !important
@@ -965,8 +973,9 @@
   }
 
   .main-aside {
-    display: block;
-    height: calc(100% - 70px);
+    display:inline-block;
+    height: 100%;
+    width: 200px;
     position: absolute;
     left: 0;
     top: 70px;
@@ -981,7 +990,7 @@
   }
 
   .el-menu {
-    border: none !important
+    border: none;
   }
 
   .main-container-views {
@@ -1103,7 +1112,38 @@
     height: 16px;
     margin-left: 20px;
   }
-  .el-icon-arrow-down{
-    background: url("../../images/down.png") no-repeat;
+  .el-submenu__title{
+    cursor: pointer;
+    text-align: left;
+  }
+  .el-menu-item{
+    text-align: left;
+  }
+  .el-submenu .el-menu--inline{
+    display: none;
+    background: rgb(111,106,138);
+    border-top: 2px solid rgb(139,136,156);
+    border-bottom: 2px solid rgb(139,136,156);
+    color: #fff;
+    padding-left: 11px;
+  }
+  .el-submenu .el-menu--inline.active{
+    display: block;
+  }
+  .el-menu--inline a{
+    color: #fff;
+  }
+  .el-submenu span{
+    color: #fff;
+  }
+  .el-submenu__title:hover {
+    background-color: rgb(71,68,91);
+  }
+  .el-menu-item:focus, .el-menu-item:hover {
+    outline: 0;
+    background-color: rgb(111,106,138);
+  }
+  .el-submenu ul.active a.active span{
+    color: rgb(70,199,236);
   }
 </style>

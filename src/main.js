@@ -2,9 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import typeList from './components/leftContent/typeList'
 import router from './router'
-
+import all from '../static/element-ui/element.js'
+Vue.use(all)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -13,10 +13,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
-new Vue({
-  el: '#leftList',
-  router,
-  components: { typeList },
-  template: '<typeList/>'
 })
