@@ -4,6 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import all from '../static/element-ui/element.js'
+import main from './main'
+import Export from './Export'
+Vue.prototype.main = main
+Vue.prototype.Export = Export
+
 Vue.use(all)
 Vue.config.productionTip = false
 

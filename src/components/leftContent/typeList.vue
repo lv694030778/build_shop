@@ -20,7 +20,7 @@
             <div class="region gesture " style="display: none;"></div>
           </div>
         </div>
-        <ul>
+        <ul @on-select="handleSelect">
           <li role="menuitem" aria-haspopup="true" class="el-submenu" v-for="(item,index) in typeList" :key="index">
             <div class="el-submenu__title"
                  style="padding-left: 20px;" @click="typeClick(index)">
@@ -30,7 +30,7 @@
             </div>
             <ul v-if="item.child.length>0" role="menu" :class="['el-menu','el-menu--inline',typeIndex==index?'active':'']" >
               <div class="nest-menu" v-for="(child_item,child_index) in item.child" :key="child_index">
-                <a href="#/permission/page" :class="childIndex==child_index?'active':''" @click="clildClick(child_index)">
+                <a :class="childIndex==child_index?'active':''" @click="clildClick(child_index)">
                   <li role="menuitem" tabindex="-1" class="el-menu-item" style="">
                     <router-link tag="span" :to="child_item.router">{{child_item.name}}</router-link>
                   </li>
@@ -51,7 +51,7 @@
     return {
       typeIndex: 0,
       childIndex: 0,
-      typeList: [{name: '楼盘列表', router: '/rightContent/build_manage/non_commercial', child: [{name: '非商业', router: '/rightContent/build_manage/non_commercial'}, {name: '商业', router: ''}]},
+      typeList: [{name: '楼盘列表', router: '/non_commercial', child: [{name: '非商业', router: '/non_commercial'}, {name: '商业', router: ''}]},
         {name: '取证管理', router: '/', child: []},
         {name: '内容管理', router: '/', child: []},
         {name: '图片管理', router: '/', child: []},
@@ -68,6 +68,9 @@
     },
     clildClick: function (index) {
       this.childIndex = index
+    },
+    handleSelect (name) {
+      this.$router.push(name)
     }
   }
 }

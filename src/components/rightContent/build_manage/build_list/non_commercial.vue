@@ -1,14 +1,9 @@
 <template>
 <div class="main-aside">
-  <div class="header">
-    <img src="../../../../images/type_icon.png" alt="">
-    <span>楼盘列表 /</span>
-    <span>非商业</span>
-  </div>
   <div class="content">
     <div class="firstLine">
       <h3>楼盘列表</h3>
-      <button>创建楼盘</button>
+      <router-link tag="button" to="/buildEdit" >创建楼盘</router-link>
     </div>
     <div class="secondLine">
       <div>
@@ -71,6 +66,9 @@
         <el-table-column
           prop="name"
           label="楼盘名称">
+          <template slot-scope="scope">
+            <router-link to="/archives" @click.native="handleArchives(scope.row.id)">{{ scope.row.name }}</router-link>
+          </template>
         </el-table-column>
         <el-table-column
           prop="nick"
@@ -90,14 +88,17 @@
         </el-table-column>
         <el-table-column
           prop="buildState"
+          width="120px"
           label="楼盘状态">
           <template slot-scope="scope">
           <el-switch
-            v-model=scope.buildState
+            v-model='buildList[scope.$index].buildState'
             active-color="#13ce66"
-            active-value=1
-            inactive-value=0
-            @change="buildState(scope.id, scope.$index)"
+            active-value='1'
+            inactive-value='0'
+            @change="buildState($event, scope.$index)"
+            active-text="上架"
+            inactive-text="下架">
             inactive-color="rgb(240,240,242)">
           </el-switch>
           </template>
@@ -128,21 +129,31 @@
         </el-table-column>
         <el-table-column label="操作" width="240px">
           <template slot-scope="scope">
+            <router-link tag="el-button" to="/buildEdit" @click.native="handleEdit(scope.row.id)" class="el-button--mini">编辑</router-link>
             <el-button
               size="mini"
-              @click="handleEdit(scope.id)">编辑</el-button>
-            <el-button
-              size="mini"
-              @click="irrigation(scope.id)">灌水</el-button>
+              @click="irrigation(scope.$index)">灌水</el-button>
             <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.id)">删除</el-button>
+              @click="handleDelete(scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
     </div>
+    <div class="block page">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 30,50,100]"
+        :page-size="10"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="allTotal">
+      </el-pagination>
+    </div>
   </div>
+  <router-view></router-view>
 </div>
 </template>
 <script>
@@ -171,8 +182,18 @@ export default {
         label: '北京烤鸭'
       }],
       buildList: [{
-        id: 123123, name: '行车自行车行', nick: '行车自', area: '北京', property: '住宅', state: '在售', buildState: 1, num: '222', irrigation: '333', real: '321', time: '1999-09-19 19:19:19'
-      }]
+        id: 1111111, name: '这个是1', nick: '行车自', area: '北京', property: '住宅', state: '在售', buildState: '1', num: '9999', irrigation: '3434', real: '6546', time: '1999-09-19 19:19:19'
+      }, {
+        id: 2222222, name: '这个是0', nick: '行车自', area: '北京', property: '住宅', state: '在售', buildState: '0', num: '2333', irrigation: '7547', real: '7457', time: '1999-09-19 19:19:00'
+      }, {
+        id: 3333333, name: '这个是1', nick: '行车自', area: '北京', property: '住宅', state: '在售', buildState: '1', num: '2223', irrigation: '6545', real: '7456', time: '1999-09-19 19:01:19'
+      }, {
+        id: 4444444, name: '这个是1', nick: '行车自', area: '北京', property: '住宅', state: '在售', buildState: '1', num: '4543', irrigation: '4565', real: '3454', time: '1999-09-19 01:19:19'
+      }
+      ],
+      currentPage: 1,
+      allTotal: 1,
+      endReason: ''
     }
   },
   methods: {
@@ -181,18 +202,104 @@ export default {
     },
     handleEdit: function (id) {
       console.log('编辑')
+      sessionStorage.setItem('buildId', id)
     },
-    irrigation: function (id) {
+    irrigation: function ($index) {
       console.log('灌水')
+      this.endReason = ''
+      const h = this.$createElement
+      this.$msgbox({
+        title: '浏览灌水量',
+        message: h('p', null, [
+          h('div', { style: 'marginBottom:10px' }, '当前灌水浏览量：' + $index + ''),
+          h('span', null, '灌水数量'),
+          h('input', {
+            style: {
+              marginLeft: '10px',
+              border: '1px solid #ddd',
+              height: '26px',
+              width: '200px',
+              padding: '0 5px'
+            },
+            attrs: { value: this.endReason, id: 'hinput', placeholder: '单行输入' },
+            on: {input: this.handleClick}
+          })
+        ]),
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        beforeClose: (action, instance, done) => {
+          console.log(this.endReason)
+          done()
+        }
+      }).then(instance => {
+        this.$message({
+          type: 'info',
+          message: 'action: ' + instance
+        })
+      })
     },
-    handleDelete: function (id) {
+    handleClick: function () {
+      let hinput = document.getElementById('hinput').value
+      this.endReason = hinput
+    },
+    handleDelete: function ($index) {
       console.log('删除')
+      let that = this
+      this.$confirm('是否确定删除', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let buildList = that.buildList
+        buildList.splice($index, 1)
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
-    buildState: function (id, index) {
-      let buildList = this.buildList
-      let buildState = buildList[index].buildState
-      buildState === 0 ? buildState = 1 : buildState = 0
-      this.buildList[index].buildState = buildState
+    buildState: function ($event, index) {
+      let that = this
+      let newEvent = ''
+      let msg = ''
+      let title = ''
+      if ($event === '1') {
+        newEvent = '0'
+        msg = '是否确认上架此楼盘'
+        title = '上架提示'
+      } else if ($event === '0') {
+        newEvent = '1'
+        msg = '是否确认下架此楼盘'
+        title = '下架提示'
+      }
+      this.$confirm(msg, title, {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: ''
+      }).then(() => {
+        let buildList = that.buildList[index]
+        buildList.buildState = $event
+        that.$set(that.buildList, index, buildList)
+      }).catch(() => {
+        let buildList = that.buildList[index]
+        buildList.buildState = newEvent
+        that.$set(that.buildList, index, buildList)
+      })
+    },
+    handleSizeChange (val) {
+      console.log(val)
+    },
+    handleCurrentChange (val) {
+      console.log(val)
+    },
+    handleArchives (id) {
+      sessionStorage.setItem('buildId', id)
     }
   },
   onLode: {
@@ -206,11 +313,11 @@ export default {
   }
   .main-aside {
     display:inline-block;
-    height:calc(100% - 70px);
-    width:calc(100% - 200px);
+    height:calc(100% - 50px);
+    width:100%;
     position: absolute;
-    left: 200px;
-    top: 70px;
+    left: 0;
+    top: 60px;
     bottom: 0;
     background: #fff;
     overflow-y: auto;
@@ -218,16 +325,6 @@ export default {
   }
   .main-aside>div{
     padding:0 20px;
-  }
-  .main-aside .header{
-    height: 50px;
-    line-height: 50px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  .main-aside .header img{
-    vertical-align: middle;
-    margin-right: 30px;
   }
   .content .firstLine{
     height: 50px;
@@ -292,6 +389,9 @@ export default {
   .content table{
     width: 100%;
   }
+  .lists{
+    padding-bottom: 70px;
+  }
   .lists thead td{
     line-height: 45px;
   }
@@ -318,4 +418,15 @@ export default {
   .lists tbody tr{
     border-top: 1px solid #ddd;
   }
+  .page{
+    position: fixed;
+    bottom: 0;
+    left: 220px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    background: #fff;
+    width: calc(100% - 240px);
+    z-index: 2;
+  }
+
 </style>

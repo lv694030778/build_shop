@@ -33,4 +33,20 @@ a{
   text-decoration: none;
 }
 
+  .el-switch{
+    width: 100px;
+    padding-left: 38px;
+  }
+  .el-switch__label--right,.el-switch__label--left{
+    margin-left: 0;
+    position: absolute;
+    left: 0;
+    display: none;
+  }
+  .el-switch__label--left.is-active{
+    display: block;
+  }
+  .el-switch__label--right.is-active{
+    display: block;
+  }
 </style>
