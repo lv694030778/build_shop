@@ -83,7 +83,7 @@
       </el-row>
       <div class="grid-content" style="margin-top: 20px">
         <h3 style="display: inline-block;margin-right: 20px">建筑规划</h3>
-        <router-link to="/buildEdit" tag="el-button" class="el-button--medium">编辑</router-link>
+        <router-link to="/buildPlan" tag="el-button" class="el-button--medium">编辑</router-link>
       </div>
       <el-row>
         <el-col :span="12"><div class="grid-content">
@@ -157,7 +157,7 @@
       </el-row>
       <div class="grid-content" style="margin-top: 20px">
         <h3 style="display: inline-block;margin-right: 20px">物业信息</h3>
-        <router-link to="/buildEdit" tag="el-button" class="el-button--medium">编辑</router-link>
+        <router-link to="/property" tag="el-button" class="el-button--medium">编辑</router-link>
       </div>
       <el-row>
         <el-col :span="12"><div class="grid-content">

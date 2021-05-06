@@ -8,6 +8,9 @@ import nonCommercial from '@/components/rightContent/build_manage/build_list/non
 import archives from '@/components/rightContent/build_manage/build_list/archives'
 import buildArchives from '@/components/rightContent/build_manage/build_list/archives/build_archives'
 import buildEdit from '@/components/rightContent/build_manage/build_list/archives/build_edit'
+import buildPlan from '@/components/rightContent/build_manage/build_list/archives/build_plan'
+import property from '@/components/rightContent/build_manage/build_list/archives/property'
+import sellingPrice from '@/components/rightContent/build_manage/build_list/selling_price'
 
 Vue.use(Router)
 /* eslint-disable */
@@ -52,6 +55,21 @@ export default new Router({
               name: '创建楼盘',
               props: true,
               component: buildEdit,
+            }, {
+              path: '/buildPlan',
+              name: '建筑规划',
+              props: true,
+              component: buildPlan,
+            }, {
+              path: '/property',
+              name: '物业信息',
+              props: true,
+              component: property,
+            }, {
+              path: '/sellingPrice',
+              name: '销售价格',
+              props: true,
+              component: sellingPrice,
             }]
           }
           ]

@@ -49,4 +49,7 @@ a{
   .el-switch__label--right.is-active{
     display: block;
   }
+  #selling_price .el-dialog{
+    width: 800px;
+  }
 </style>

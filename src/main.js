@@ -6,10 +6,8 @@ import router from './router'
 import all from '../static/element-ui/element.js'
 import Export from './Export'
 Vue.prototype.Export = Export
-
 Vue.use(all)
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -213,11 +213,11 @@
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose">
-            <span>这是一段信息</span>
+            <span>本次有新改动，是否保存</span>
             <span slot="footer" class="dialog-footer">
     <el-button @click="preserve">保 存</el-button>
-    <el-button @click="handleClose">不保存</el-button>
-    <el-button type="primary" @click="handleClose">取消</el-button>
+    <el-button @click="notServe">不保存</el-button>
+    <el-button @click="handleClose">取消</el-button>
   </span>
           </el-dialog>
         </div>
@@ -374,11 +374,17 @@ export default {
           }
         })
       } else {
-        this.Export.dialogVisible = !this.Export.dialogVisible
+        this.Export.dialogVisible = false
+        this.dialogVisible = false
       }
     },
-    handleClose (done) {
-      done()
+    notServe () {
+      this.dialogVisible = false
+      this.Export.dialogVisible = false
+      window.history.go(-1)
+    },
+    handleClose () {
+      this.dialogVisible = false
     }
   },
   watch: {

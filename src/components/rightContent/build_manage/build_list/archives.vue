@@ -10,11 +10,10 @@
             @close="handleClose">
             <el-submenu v-for="(item,index) in typeData" :index="index" :key="index">
               <template slot="title">
-                <h4>{{item.name}}</h4>
+                <router-link tag="h4" :to="item.path">{{item.name}}</router-link>
               </template>
               <el-menu-item-group>
-<!--                <template slot="title">分组一</template>-->
-                <el-menu-item v-for="(item_c,index_c) in item.child" :index="index-index_c" :key="index_c">{{item_c.name}}</el-menu-item>
+                <router-link data-v-5b13172a="" role="menuitem" tabindex="-1" class="el-menu-item" tag="li" v-for="(item_c,index_c) in item.child" :index="index-index_c" :key="index_c" :to="item_c.path" style="padding-left: 40px;">{{item_c.name}}</router-link>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -36,10 +35,10 @@ export default {
         'path': '',
         'child': [{
           'name': '楼盘档案',
-          'path': ''
+          'path': '/buildArchives'
         }, {
           'name': '销售价格',
-          'path': ''
+          'path': '/sellingPrice'
         }, {
           'name': '楼盘标签',
           'path': ''
