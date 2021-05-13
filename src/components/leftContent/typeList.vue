@@ -51,8 +51,8 @@
     return {
       typeIndex: 0,
       childIndex: 0,
-      typeList: [{name: '楼盘列表', router: '/non_commercial', child: [{name: '非商业', router: '/non_commercial'}, {name: '商业', router: ''}]},
-        {name: '取证管理', router: '/', child: []},
+      typeList: [{name: '楼盘列表', router: '', child: [{name: '非商业', router: '/non_commercial'}, {name: '商业', router: ''}]},
+        {name: '取证管理', router: '/', child: [{name: '摇号列表', router: '/forensicsList'}, {name: '摇号剩余', router: ''}]},
         {name: '内容管理', router: '/', child: []},
         {name: '图片管理', router: '/', child: []},
         {name: '周边管理', router: '/', child: []},

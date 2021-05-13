@@ -13,7 +13,7 @@
                 <router-link tag="h4" :to="item.path">{{item.name}}</router-link>
               </template>
               <el-menu-item-group>
-                <router-link data-v-5b13172a="" role="menuitem" tabindex="-1" class="el-menu-item" tag="li" v-for="(item_c,index_c) in item.child" :index="index-index_c" :key="index_c" :to="item_c.path" style="padding-left: 40px;">{{item_c.name}}</router-link>
+                <router-link data-v-5b13172a="" role="menuitem" tabindex="-1" class="el-menu-item" tag="li" v-for="(item_c,index_c) in item.child" :index="index-index_c" :key="index_c" :to="item_c.path" style="padding-left: 40px;">{{item_c.name}} <span v-if="item_c.status">：{{item_c.status}}</span><span v-if="item_c.number">({{item_c.number}})</span></router-link>
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -30,6 +30,8 @@ export default {
   data () {
     return {
       buildId: '',
+      Status: '售罄',
+      number: '11',
       typeData: [{
         'name': '楼盘信息',
         'path': '',
@@ -41,23 +43,28 @@ export default {
           'path': '/sellingPrice'
         }, {
           'name': '楼盘标签',
-          'path': ''
+          'path': '/buildTags'
         }, {
           'name': '周边配套',
-          'path': ''
+          'path': '/periphery'
         }]
       }, {
         'name': '销售状态',
         'path': '',
-        'child': [{'name': '当前状态', 'path': ''}]
+        'child': [{'name': '当前状态', 'path': '/salesStatus', status: this.Status}]
+      }, {
+        'name': '图片信息',
+        'path': '',
+        'child': [{'name': '户型图', 'path': '/houseLayout', number: this.number}]
+      }, {
+        'name': '置业顾问',
+        'path': '/dynatown',
+        'child': []
       }]
     }
   },
   beforeCreate () {
-    let buildId = sessionStorage.getItem('buildId')
-    if (buildId) {
-      this.buildId = buildId
-    }
+    this.buildId = this.Export.buildId
   },
   methods: {
     handleOpen (key, keyPath) {

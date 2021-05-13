@@ -14,9 +14,11 @@
     "element-plus": "^1.0.2-beta.40",
     "layui": "^2.6.5",
     "screenfull": "^5.1.0",
+    "sortable": "^2.0.0",
     "vue": "^2.5.2",
     "vue-baidu-map": "^0.21.22",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

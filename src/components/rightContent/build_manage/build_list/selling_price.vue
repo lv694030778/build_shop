@@ -94,12 +94,19 @@
         </el-pagination>
       </div>
       <template>
-        <el-dialog title="新增价格" :visible.sync="outerVisible">
+        <el-dialog title="新增价格" :before-close="cancel" :visible.sync="outerVisible">
           <el-dialog
-            width="30%"
-            title=""
+            title="保存提示"
             :visible.sync="innerVisible"
+            width="30%"
+            :before-close="handleClose"
             append-to-body>
+            <span>本次有新改动，是否保存</span>
+            <span slot="footer" class="dialog-footer">
+    <el-button @click="preserve">保 存</el-button>
+    <el-button @click="notServe">不保存</el-button>
+    <el-button @click="handleClose">取消</el-button>
+  </span>
           </el-dialog>
           <template v-slot:title>
             <div slot="content" class="dialog-content">
@@ -232,9 +239,9 @@
               </div>
             </div>
           </template>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="outerVisible = false">取 消</el-button>
-            <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button>
+          <div slot="footer" class="dialog-footer" style="text-align: center">
+            <el-button @click="cancel">取 消</el-button>
+            <el-button @click="preserve">保 存</el-button>
           </div>
         </el-dialog>
       </template>
@@ -269,6 +276,7 @@ export default {
       }],
       outerVisible: false,
       innerVisible: false,
+      isChange: false,
       checked: ['均价', '单价', '总价'],
       property: '',
       propertyOptions: [{
@@ -401,6 +409,7 @@ export default {
       })
     },
     edit ($index) {
+      this.outerVisible = true
     },
     handleSizeChange (val) {
       console.log(val)
@@ -431,6 +440,82 @@ export default {
         this.totalPreview = this.building + this.totalPrice1 + '万/套起'
       } else {
         this.totalPreview = ''
+      }
+    },
+    cancel () {
+      if (this.isChange) {
+        this.innerVisible = true
+      } else {
+        this.outerVisible = false
+      }
+    },
+    preserve (done) {
+      // 保存修改
+      this.outerVisible = false
+      this.innerVisible = false
+    },
+    notServe () {
+      this.innerVisible = false
+      this.outerVisible = false
+    },
+    handleClose () {
+      this.innerVisible = false
+    }
+  },
+  watch: {
+    checked (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    property (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    building (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    averageDescribe (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    averagePrice (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    unitDescribe (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    unitPrice1 (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    unitPrice2 (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    totalDescribe (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    totalPrice1 (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
+      }
+    },
+    totalPrice2 (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.isChange = true
       }
     }
   }

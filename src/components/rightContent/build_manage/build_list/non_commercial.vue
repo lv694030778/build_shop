@@ -299,7 +299,7 @@ export default {
       console.log(val)
     },
     handleArchives (id) {
-      sessionStorage.setItem('buildId', id)
+      this.Export.buildId = id
     }
   },
   onLode: {

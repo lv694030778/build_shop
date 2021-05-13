@@ -52,4 +52,7 @@ a{
   #selling_price .el-dialog{
     width: 800px;
   }
+  #dynatown .el-dialog{
+    width: 160px;
+  }
 </style>
