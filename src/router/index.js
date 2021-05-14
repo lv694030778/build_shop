@@ -17,6 +17,9 @@ import salesStatus from '@/components/rightContent/build_manage/build_list/sales
 import houseLayout from '@/components/rightContent/build_manage/build_list/houseLayout/houseLayout'
 import dynatown from '@/components/rightContent/build_manage/build_list/dynatown/dynatown'
 import forensicsList from '@/components/rightContent/build_manage/obtain_evidence/forensics_list'
+import evidenceHead from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/evidenceHead'
+import basicInformation from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/basicInformation'
+import timeAxis from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/timeAxis'
 
 Vue.use(Router)
 /* eslint-disable */
@@ -121,7 +124,7 @@ export default new Router({
                 path: '/houseLayout',
                 name: '户型图',
                 props: true,
-                component: houseLayout,
+                component: houseLayout
               }]
             },
             {
@@ -134,15 +137,38 @@ export default new Router({
                 path: '/dynatown',
                 name: '',
                 props: true,
-                component: dynatown,
+                component: dynatown
               }]
             },
           ]
         },
           {
-            path: '/forensicsList',
-            name: '取证列表',
-            component: forensicsList
+            path: '/rightHeader',
+            name: '摇号管理',
+            props: true,
+            component: rightHeader,
+            redirect:'/forensicsList',
+            children: [{
+              path: '/forensicsList',
+              name: '摇号列表',
+              component: forensicsList
+            },
+              {
+                path: '/evidenceHead',
+                name: '取证详情',
+                component: evidenceHead,
+                redirect:'/basicInformation',
+                children: [{
+                  path: '/basicInformation',
+                  name: '基本信息',
+                  component: basicInformation
+                }, {
+                  path: '/timeAxis',
+                  name: '时间轴',
+                  component: timeAxis
+                }]
+              }
+            ]
           }
         ]
       }]

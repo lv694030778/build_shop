@@ -18,5 +18,9 @@ export default
   // 销售状态
   Status: '售罄',
   // 户型图是否有修改
-  houseLayout: false
+  houseLayout: false,
+  // 摇号列表--基本信息是否有修改
+  basicInformation: false,
+  // 摇号列表--时间线是否有修改
+  timeAxis: false
 }

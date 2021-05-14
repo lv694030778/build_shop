@@ -31,6 +31,9 @@
             <el-table-column
               prop="name"
               label="楼盘名称">
+              <template slot-scope="scope">
+              <router-link to="/buildArchives" @click.native="edit(forensics_list[scope.$index].id)">{{scope.row.name}}</router-link>
+              </template>
             </el-table-column>
             <el-table-column
               prop="batch"
@@ -39,6 +42,9 @@
             <el-table-column
               prop="recordName"
               label="批次备案名">
+              <template slot-scope="scope">
+                <router-link to="/evidenceHead" @click.native="edit(forensics_list[scope.$index].id,scope.$index)">{{scope.row.recordName}}</router-link>
+              </template>
             </el-table-column>
             <el-table-column
               prop="region"
@@ -172,10 +178,10 @@ export default {
     padding: 20px;
     display:inline-block;
     height:calc(100% - 70px);
-    width:calc(100% - 200px);
+    width:100%;
     position: absolute;
-    left: 200px;
-    top: 70px;
+    left: 0;
+    top: 0;
     bottom: 0;
     background: #fff;
     overflow-y: auto;
