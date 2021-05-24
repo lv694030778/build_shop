@@ -22,5 +22,7 @@ export default
   // 摇号列表--基本信息是否有修改
   basicInformation: false,
   // 摇号列表--时间线是否有修改
-  timeAxis: false
+  timeAxis: false,
+  // 摇号列表--购房资料是否有修改
+  information: false
 }

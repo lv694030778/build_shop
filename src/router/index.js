@@ -20,6 +20,10 @@ import forensicsList from '@/components/rightContent/build_manage/obtain_evidenc
 import evidenceHead from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/evidenceHead'
 import basicInformation from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/basicInformation'
 import timeAxis from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/timeAxis'
+import information from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/information'
+import roomPrice from '@/components/rightContent/build_manage/obtain_evidence/add_evidence/roomPrice'
+import dynamicLeft from '@/components/rightContent/build_manage/contentMgt/dynamicLeft'
+import dynamicRight from '@/components/rightContent/build_manage/contentMgt/dynamicRight'
 
 Vue.use(Router)
 /* eslint-disable */
@@ -166,17 +170,44 @@ export default new Router({
                   path: '/timeAxis',
                   name: '时间轴',
                   component: timeAxis
+                }, {
+                  path: '/information',
+                  name: '购房资料',
+                  component: information
+                }, {
+                  path: '/roomPrice',
+                  name: '一房一价',
+                  component: roomPrice
                 }]
               }
             ]
+          },
+          {
+            path: '/rightHeader',
+            name: '内容管理',
+            props: true,
+            component: rightHeader,
+            redirect:'/forensicsList',
+            children: [{
+              path: '/dynamicLeft',
+              name: '动态管理',
+              component: dynamicLeft,
+              redirect:'/dynamicRight',
+              children: [{
+                path: '/dynamicRight',
+                name: '',
+                component: dynamicRight,
+              }]
+            }
+            ]
           }
         ]
-      }]
-    },
-    {
-      path: '/dispose',
-      name: '配置管理',
-      component: dispose
+      },
+        {
+          path: '/dispose',
+          name: '配置管理',
+          component: dispose
+        }]
     }
 
   ]

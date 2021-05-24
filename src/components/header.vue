@@ -4,7 +4,7 @@
     <div data-v-2ec03684="" class="header" id="header">
       <div data-v-2ec03684="" class="logo">管理后台</div>
       <div data-v-2ec03684="" class="manage">
-        <router-link tag="span" v-for="(item,index) in manage" @click="changeClass(index)" :class="nowIndex==index?indexClass:''" :key="index"  :to="item.router" >{{item.name}}</router-link>
+        <router-link tag="span" v-for="(item,index) in manage" @click.native="changeClass(index)" :class="item.indexClass" :key="index"  :to="item.router" >{{item.name}}</router-link>
       </div>
       <div data-v-2ec03684="" class="header-right">
         <div data-v-2ec03684="" class="header-user-con">
@@ -28,17 +28,20 @@ export default {
   name: 'header',
   data () {
     return {
-      nowIndex: '0',
-      indexClass: "on",
-      manage: [{name: '楼盘管理', other: '',router:'/typeList'},
-        {name: '置业顾问管理', other: '',router:'/typeList'},
-        {name: '运营管理', other: '',router:'/typeList'},
-        {name: '配置管理', other: '',router:'/dispose'}]
+      manage: [{name: '楼盘管理', other: '', indexClass: 'on', router:'/typeList'},
+        {name: '置业顾问管理', other: '', indexClass: '', router:''},
+        {name: '运营管理', other: '', indexClass: '', router:''},
+        {name: '配置管理', other: '', indexClass: '', router:'/dispose'}]
     }
   },
   methods: {
     changeClass: function (index) {
-      this.nowIndex=index;
+      let manage=this.manage
+      for(let i=0;i<manage.length; i++){
+        manage[i].indexClass = ''
+      }
+      manage[index].indexClass = 'on'
+      this.$set(this.manage,manage)
     }
   }
 }

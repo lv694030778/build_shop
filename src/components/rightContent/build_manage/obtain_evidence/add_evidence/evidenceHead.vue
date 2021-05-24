@@ -26,12 +26,12 @@ export default {
         },
         {
           name: '购房资料',
-          path: '',
+          path: '/information',
           isShow: ''
         },
         {
           name: '一房一价',
-          path: '',
+          path: '/roomPrice',
           isShow: ''
         }
       ]

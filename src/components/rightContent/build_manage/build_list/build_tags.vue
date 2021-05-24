@@ -54,11 +54,11 @@
         width="30%"
         :before-close="closeTag">
         <span>标签名称</span>
-        <el-input maxlength="6" show-word-limit style="display: inline-block;width: 200px" v-model="tagValue" placeholder="请输入内容"></el-input>
+        <el-input maxlength="6" @input="hasOrNo" show-word-limit style="display: inline-block;width: 200px" v-model="tagValue" placeholder="请输入内容"></el-input>
         <p v-show="hasTag" style="color: red;padding-left: 60px">该标签已存在</p>
         <span slot="footer" class="dialog-footer">
     <el-button @click="closeTag">取 消</el-button>
-    <el-button type="primary" @click="saveTag">确 定</el-button>
+    <el-button :disabled="isDisabled" type="primary" @click="saveTag">确 定</el-button>
   </span>
       </el-dialog>
     </div>
@@ -77,6 +77,7 @@ export default {
       tagValue: '',
       tagIndex: 0,
       hasTag: false,
+      isDisabled: false,
       nowTag: [{index: '0', name: '南北通透'}, {index: '1', name: '地铁周边'}],
       allTag: [
         {
@@ -150,6 +151,7 @@ export default {
     addTag (index) {
       this.tagIndex = index
       this.isaddTag = true
+      this.hasTag = false
     },
     select (index, index2, type, name) {
       let nowTag = this.nowTag
@@ -229,14 +231,23 @@ export default {
     saveTag () {
       let allTag = this.allTag
       if (this.tagValue !== '') {
+        allTag[this.tagIndex].tags.push({name: this.tagValue, type: 'info'})
+        this.$set(this.allTag, allTag)
+        this.tagValue = ''
+        this.isaddTag = false
+        this.hasTag = false
+      }
+    },
+    hasOrNo () {
+      let allTag = this.allTag
+      if (this.tagValue !== '') {
         for (let i = 0; i < allTag[this.tagIndex].tags.length; i++) {
           if (allTag[this.tagIndex].tags[i].name === this.tagValue) {
             this.hasTag = true
+            this.isDisabled = true
           } else {
-            allTag[this.tagIndex].tags.push({name: this.tagValue, type: 'info'})
-            this.$set(this.allTag, allTag)
-            this.tagValue = ''
-            this.isaddTag = false
+            this.hasTag = false
+            this.isDisabled = false
           }
         }
       }
